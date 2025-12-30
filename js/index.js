@@ -32,9 +32,9 @@ var S = {
             const minute = String(now.getMinutes()).padStart(2, '0');
             const second = String(now.getSeconds()).padStart(2, '0');
 
-            const timeSequence = `#circle|亲爱的|赵雪|小朋友|现在是|北京时间|${year}年|${month}月${date}日|${hour}时${minute}分${second}秒|我将用|我的方式|表达|新年祝福|#countdown 5|祝你新的一年|快快乐乐|身体健康|万事如意！`;
+            const timeSequence = `#circle|亲爱的|小胡|现在是|北京时间|${year}年|${month}月${date}日|${hour}时${minute}分${second}秒|我将用|我的方式|悄悄告诉你|#countdown 5|新的一年|每天都会|开开心心|所有美好|都向你走来`;
 
-            S.UI.simulate(timeSequence, 3000);
+            S.UI.simulate(timeSequence, 2500);
         }
 
         S.Drawing.loop(function () {
@@ -53,13 +53,13 @@ S.Drawing = (function () {
         context,
         renderFn
     requestFrame = window.requestAnimationFrame ||
-                   window.webkitRequestAnimationFrame ||
-                   window.mozRequestAnimationFrame ||
-                   window.oRequestAnimationFrame ||
-                   window.msRequestAnimationFrame ||
-                   function (callback) {
-                       window.setTimeout(callback, 1000 / 60);
-                   };
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
 
     return {
         init: function (el) {
@@ -123,7 +123,7 @@ S.UI = (function () {
     function formatTime(date) {
         var h = date.getHours(),
             m = date.getMinutes(),
-        m = m < 10 ? '0' + m : m;
+            m = m < 10 ? '0' + m : m;
         return h + ':' + m;
     }
 
@@ -517,13 +517,13 @@ S.ShapeBuilder = (function () {
     function processCanvas() {
         var pixels = shapeContext.getImageData(0, 0, shapeCanvas.width, shapeCanvas.height).data;
         dots = [],
-        pixels,
-        x = 0,
-        y = 0,
-        fx = shapeCanvas.width,
-        fy = shapeCanvas.height,
-        w = 0,
-        h = 0;
+            pixels,
+            x = 0,
+            y = 0,
+            fx = shapeCanvas.width,
+            fy = shapeCanvas.height,
+            w = 0,
+            h = 0;
 
         for (var p = 0; p < pixels.length; p += (4 * gap)) {
             if (pixels[p + 3] > 0) {
@@ -602,8 +602,8 @@ S.ShapeBuilder = (function () {
 
             setFontSize(fontSize);
             s = Math.min(fontSize,
-                        (shapeCanvas.width / shapeContext.measureText(l).width) * 0.8 * fontSize,
-                        (shapeCanvas.height / fontSize) * (isNumber(l) ? 1 : 0.45) * fontSize);
+                (shapeCanvas.width / shapeContext.measureText(l).width) * 0.8 * fontSize,
+                (shapeCanvas.height / fontSize) * (isNumber(l) ? 1 : 0.45) * fontSize);
             setFontSize(s);
 
             shapeContext.clearRect(0, 0, shapeCanvas.width, shapeCanvas.height);
@@ -740,4 +740,17 @@ S.Shape = (function () {
 
 
 S.init();
+const audio = document.getElementById('bgm');
+
+function unlockAudio() {
+    audio.volume = 0.8;
+    audio.play();
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('keydown', unlockAudio);
+}
+
+// 任意一次用户行为即可解锁
+document.addEventListener('click', unlockAudio);
+document.addEventListener('keydown', unlockAudio);
+
 
