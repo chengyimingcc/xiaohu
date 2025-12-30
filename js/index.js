@@ -32,7 +32,7 @@ var S = {
             const minute = String(now.getMinutes()).padStart(2, '0');
             const second = String(now.getSeconds()).padStart(2, '0');
 
-            const timeSequence = `#circle|亲爱的|小胡|现在是|北京时间|${year}年|${month}月${date}日|${hour}时${minute}分${second}秒|我将用|我的方式|悄悄告诉你|#countdown 5|新的一年|每天都会|开开心心|所有美好|都向你走来`;
+            const timeSequence = `#circle|亲爱的|小胡|现在是|北京时间|${year}年|${month}月${date}日|${hour}时${minute}分|我将用|我的方式|悄悄告诉你|#countdown 5|新的一年|每天都会|开开心心|所有美好|都向你走来`;
 
             S.UI.simulate(timeSequence, 2500);
         }
